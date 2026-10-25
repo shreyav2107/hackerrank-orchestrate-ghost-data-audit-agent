@@ -1,0 +1,19 @@
+Classify each request independently. Decide whether the person is asking
+Northstar Shop to delete, erase, remove, forget, or close an account to fulfill
+deletion of their personal data. This is the authorization decision described
+in the task: an access, information, correction, export, marketing opt-out, or
+unrelated request does not authorize deletion. A request to remove a remaining
+personal-data copy, such as an old search result or support details, authorizes
+deletion even if the main account is already gone. A follow-up request to
+audit, check, confirm, or verify whether an earlier deletion removed the
+account or identifiable records also authorizes deletion verification; wording
+such as “tell me whether it was removed” is not merely an information request
+in that context. Interpret other languages by meaning. When the text does not
+ask for deletion, return false.
+
+Return JSON only: a list with exactly one object per input, each having case_id
+(string) and authorizes_deletion (boolean). Do not add explanations or other
+fields.
+
+Requests JSON:
+{{requests_json}}

@@ -1,0 +1,191 @@
+{
+  "cases": [
+    {
+      "request": {
+        "case_id": "SYN_NON_DELETE",
+        "email": "reader@example.test",
+        "requested_at": "2025-03-01T09:00:00Z",
+        "reported_status": "NOT_STARTED",
+        "reported_at": "2025-03-01T09:00:00Z",
+        "audit_at": "2025-03-02T00:00:00Z",
+        "request_text": "Please send me a copy of my information; do not delete my account."
+      },
+      "identity": {
+        "user_id": "synth_reader_001",
+        "name": "Riley Example",
+        "email": "reader@example.test",
+        "phone": "+1-555-0101",
+        "email_hash": "hash_reader_001",
+        "updated_at": "2025-02-01T00:00:00Z"
+      },
+      "evidence": [],
+      "expected": {
+        "deletion_status": "NOT_APPLICABLE",
+        "steps": []
+      }
+    },
+    {
+      "request": {
+        "case_id": "SYN_TOMBSTONE",
+        "email": "tombstone@example.test",
+        "requested_at": "2025-03-01T09:00:00Z",
+        "reported_status": "COMPLETE",
+        "reported_at": "2025-03-01T09:00:00Z",
+        "audit_at": "2025-03-02T00:00:00Z",
+        "request_text": "Please delete my account and personal data."
+      },
+      "identity": {
+        "user_id": "synth_tombstone_002",
+        "name": "Jordan Example",
+        "email": "tombstone@example.test",
+        "phone": "+1-555-0102",
+        "email_hash": "hash_tombstone_002",
+        "updated_at": "2025-02-01T00:00:00Z"
+      },
+      "evidence": [
+        {
+          "file_id": "fixture_tombstone",
+          "file_path": "evidence/tombstone.txt",
+          "captured_at": "2025-03-01T08:00:00Z",
+          "record": {
+            "system_id": "identity_service",
+            "resource_id": "account_tombstone_synth_002",
+            "category": "ACCOUNT_TOMBSTONE",
+            "state": "DELETED",
+            "identifiers_mentioned": ["synth_tombstone_002"],
+            "record_time": "2025-03-01T08:00:00Z"
+          }
+        }
+      ],
+      "expected": {
+        "deletion_status": "COMPLETE",
+        "steps": [
+          {
+            "step_no": 1,
+            "phase": "VERIFICATION",
+            "system_id": "identity_service",
+            "resource_id": "account_tombstone_synth_002",
+            "operation": "VERIFY_RECORD_REDACTED",
+            "state": "REDACTED",
+            "evidence_id": "fixture_tombstone"
+          }
+        ]
+      }
+    },
+    {
+      "request": {
+        "case_id": "SYN_FLOW_RESTORE",
+        "email": "process@example.test",
+        "requested_at": "2025-03-01T09:00:00Z",
+        "reported_status": "PARTIALLY_COMPLETE",
+        "reported_at": "2025-03-01T09:00:00Z",
+        "audit_at": "2025-03-02T00:00:00Z",
+        "request_text": "Please erase my account and personal data."
+      },
+      "identity": {
+        "user_id": "synth_process_003",
+        "name": "Casey Example",
+        "email": "process@example.test",
+        "phone": "+1-555-0103",
+        "email_hash": "hash_process_003",
+        "updated_at": "2025-02-01T00:00:00Z"
+      },
+      "evidence": [
+        {
+          "file_id": "fixture_flow_restore",
+          "file_path": "evidence/processes.txt",
+          "captured_at": "2025-03-01T08:00:00Z",
+          "record": {
+            "system_id": "integration_service",
+            "resource_id": "data_flow_synth_003",
+            "category": "DATA_FLOW",
+            "state": "ACTIVE",
+            "identifiers_mentioned": ["synth_process_003"],
+            "record_time": "2025-03-01T08:00:00Z"
+          }
+        },
+        {
+          "file_id": "fixture_flow_restore",
+          "file_path": "evidence/processes.txt",
+          "captured_at": "2025-03-01T08:00:00Z",
+          "record": {
+            "system_id": "backup_service",
+            "resource_id": "backup_synth_003",
+            "category": "BACKUP_ARCHIVE",
+            "state": "ACTIVE",
+            "identifiers_mentioned": ["synth_process_003"],
+            "record_time": "2025-03-01T08:00:00Z"
+          }
+        }
+      ],
+      "expected": {
+        "deletion_status": "INCOMPLETE",
+        "steps": [
+          {
+            "step_no": 1,
+            "phase": "FINDING",
+            "system_id": "integration_service",
+            "resource_id": "data_flow_synth_003",
+            "operation": "REPORT_ACTIVE_DATA_FLOW",
+            "state": "ACTIVE",
+            "evidence_id": "fixture_flow_restore"
+          },
+          {
+            "step_no": 2,
+            "phase": "FINDING",
+            "system_id": "backup_service",
+            "resource_id": "backup_synth_003",
+            "operation": "REPORT_RESTORE_RISK",
+            "state": "ACTIVE",
+            "evidence_id": "fixture_flow_restore"
+          },
+          {
+            "step_no": 3,
+            "phase": "REMEDIATION",
+            "system_id": "integration_service",
+            "resource_id": "data_flow_synth_003",
+            "operation": "DISABLE_DATA_FLOW",
+            "state": "DISABLED",
+            "evidence_id": ""
+          },
+          {
+            "step_no": 4,
+            "phase": "REMEDIATION",
+            "system_id": "backup_service",
+            "resource_id": "backup_synth_003",
+            "operation": "BLOCK_RESTORE",
+            "state": "BLOCKED",
+            "evidence_id": ""
+          },
+          {
+            "step_no": 5,
+            "phase": "VERIFICATION",
+            "system_id": "backup_service",
+            "resource_id": "backup_synth_003",
+            "operation": "VERIFY_RECORD_PRESENT",
+            "state": "PRESENT",
+            "evidence_id": ""
+          },
+          {
+            "step_no": 6,
+            "phase": "VERIFICATION",
+            "system_id": "integration_service",
+            "resource_id": "data_flow_synth_003",
+            "operation": "VERIFY_DATA_FLOW_DISABLED",
+            "state": "DISABLED",
+            "evidence_id": ""
+          },
+          {
+            "step_no": 7,
+            "phase": "VERIFICATION",
+            "system_id": "backup_service",
+            "resource_id": "backup_synth_003",
+            "operation": "VERIFY_RESTORE_BLOCKED",
+            "state": "BLOCKED",
+            "evidence_id": ""
+          }
+        ]
+      }
+    }
+  ]
+}

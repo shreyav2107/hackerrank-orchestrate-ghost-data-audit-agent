@@ -1,0 +1,26 @@
+Extract only records that mention a person through an email, phone, name,
+user_id, or hash.
+Return compact JSON only: an array, with no markdown or explanation. Use [] if
+no matching records exist.
+Each record must contain exactly: system_id, resource_id, category, state,
+state_basis, identifiers_mentioned, record_time. Use strings for all fields
+except identifiers_mentioned, which is an array of strings.
+Use category exactly from: {category_list}. Copy values from the evidence; do
+not invent them.
+Use the record's event or snapshot time, or an empty string when no time is
+shown.
+Use only these state values: PRESENT, ACTIVE, DISABLED, BLOCKED, ABSENT,
+REDACTED, ANONYMIZED.
+Set state_basis to exactly "explicit" when the evidence directly states a
+condition that maps to one of those values. Set it to exactly "inferred" when
+applying the default below.
+For a resource record that appears in the evidence but has no explicit state,
+use state="PRESENT" and state_basis="inferred". Map a clear explicit absence,
+redaction, anonymization, active/disabled flow, or blocked/allowed restore
+condition only when the evidence supports the corresponding allowed state. Do
+not output FOUND, NOT_FOUND, IDENTIFIABLE, or other state names. Omit a record
+if its state cannot be grounded.
+Evidence file: {file_id}
+
+Evidence content:
+{{evidence_content}}

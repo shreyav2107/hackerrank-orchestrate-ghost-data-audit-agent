@@ -1,0 +1,186 @@
+[
+  {
+    "case_id": "SYN_NON_DELETE",
+    "expected": {
+      "deletion_status": "NOT_APPLICABLE",
+      "steps": []
+    },
+    "actual": {
+      "deletion_status": "NOT_APPLICABLE",
+      "steps": []
+    },
+    "passed": true
+  },
+  {
+    "case_id": "SYN_TOMBSTONE",
+    "expected": {
+      "deletion_status": "COMPLETE",
+      "steps": [
+        {
+          "step_no": 1,
+          "phase": "VERIFICATION",
+          "system_id": "identity_service",
+          "resource_id": "account_tombstone_synth_002",
+          "operation": "VERIFY_RECORD_REDACTED",
+          "state": "REDACTED",
+          "evidence_id": "fixture_tombstone"
+        }
+      ]
+    },
+    "actual": {
+      "deletion_status": "COMPLETE",
+      "steps": [
+        {
+          "step_no": 1,
+          "phase": "VERIFICATION",
+          "system_id": "identity_service",
+          "resource_id": "account_tombstone_synth_002",
+          "operation": "VERIFY_RECORD_REDACTED",
+          "state": "REDACTED",
+          "evidence_id": "fixture_tombstone"
+        }
+      ]
+    },
+    "passed": true
+  },
+  {
+    "case_id": "SYN_FLOW_RESTORE",
+    "expected": {
+      "deletion_status": "INCOMPLETE",
+      "steps": [
+        {
+          "step_no": 1,
+          "phase": "FINDING",
+          "system_id": "integration_service",
+          "resource_id": "data_flow_synth_003",
+          "operation": "REPORT_ACTIVE_DATA_FLOW",
+          "state": "ACTIVE",
+          "evidence_id": "fixture_flow_restore"
+        },
+        {
+          "step_no": 2,
+          "phase": "FINDING",
+          "system_id": "backup_service",
+          "resource_id": "backup_synth_003",
+          "operation": "REPORT_RESTORE_RISK",
+          "state": "ACTIVE",
+          "evidence_id": "fixture_flow_restore"
+        },
+        {
+          "step_no": 3,
+          "phase": "REMEDIATION",
+          "system_id": "integration_service",
+          "resource_id": "data_flow_synth_003",
+          "operation": "DISABLE_DATA_FLOW",
+          "state": "DISABLED",
+          "evidence_id": ""
+        },
+        {
+          "step_no": 4,
+          "phase": "REMEDIATION",
+          "system_id": "backup_service",
+          "resource_id": "backup_synth_003",
+          "operation": "BLOCK_RESTORE",
+          "state": "BLOCKED",
+          "evidence_id": ""
+        },
+        {
+          "step_no": 5,
+          "phase": "VERIFICATION",
+          "system_id": "backup_service",
+          "resource_id": "backup_synth_003",
+          "operation": "VERIFY_RECORD_PRESENT",
+          "state": "PRESENT",
+          "evidence_id": ""
+        },
+        {
+          "step_no": 6,
+          "phase": "VERIFICATION",
+          "system_id": "integration_service",
+          "resource_id": "data_flow_synth_003",
+          "operation": "VERIFY_DATA_FLOW_DISABLED",
+          "state": "DISABLED",
+          "evidence_id": ""
+        },
+        {
+          "step_no": 7,
+          "phase": "VERIFICATION",
+          "system_id": "backup_service",
+          "resource_id": "backup_synth_003",
+          "operation": "VERIFY_RESTORE_BLOCKED",
+          "state": "BLOCKED",
+          "evidence_id": ""
+        }
+      ]
+    },
+    "actual": {
+      "deletion_status": "INCOMPLETE",
+      "steps": [
+        {
+          "step_no": 1,
+          "phase": "FINDING",
+          "system_id": "integration_service",
+          "resource_id": "data_flow_synth_003",
+          "operation": "REPORT_ACTIVE_DATA_FLOW",
+          "state": "ACTIVE",
+          "evidence_id": "fixture_flow_restore"
+        },
+        {
+          "step_no": 2,
+          "phase": "FINDING",
+          "system_id": "backup_service",
+          "resource_id": "backup_synth_003",
+          "operation": "REPORT_RESTORE_RISK",
+          "state": "ACTIVE",
+          "evidence_id": "fixture_flow_restore"
+        },
+        {
+          "step_no": 3,
+          "phase": "REMEDIATION",
+          "system_id": "integration_service",
+          "resource_id": "data_flow_synth_003",
+          "operation": "DISABLE_DATA_FLOW",
+          "state": "DISABLED",
+          "evidence_id": ""
+        },
+        {
+          "step_no": 4,
+          "phase": "REMEDIATION",
+          "system_id": "backup_service",
+          "resource_id": "backup_synth_003",
+          "operation": "BLOCK_RESTORE",
+          "state": "BLOCKED",
+          "evidence_id": ""
+        },
+        {
+          "step_no": 5,
+          "phase": "VERIFICATION",
+          "system_id": "backup_service",
+          "resource_id": "backup_synth_003",
+          "operation": "VERIFY_RECORD_PRESENT",
+          "state": "PRESENT",
+          "evidence_id": ""
+        },
+        {
+          "step_no": 6,
+          "phase": "VERIFICATION",
+          "system_id": "integration_service",
+          "resource_id": "data_flow_synth_003",
+          "operation": "VERIFY_DATA_FLOW_DISABLED",
+          "state": "DISABLED",
+          "evidence_id": ""
+        },
+        {
+          "step_no": 7,
+          "phase": "VERIFICATION",
+          "system_id": "backup_service",
+          "resource_id": "backup_synth_003",
+          "operation": "VERIFY_RESTORE_BLOCKED",
+          "state": "BLOCKED",
+          "evidence_id": ""
+        }
+      ]
+    },
+    "passed": true
+  }
+]
